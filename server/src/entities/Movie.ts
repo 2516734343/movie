@@ -1,8 +1,9 @@
 import { ArrayMinSize, IsInt, IsNotEmpty, Min, MinLength } from "class-validator";
-
+import { Type } from 'class-transformer';
 export class Movie {
 
-  @IsNotEmpty({message: '电影名称不可以为空'})
+  @IsNotEmpty({ message: '电影名称不可以为空' })
+  @Type(() => String)
   public name: string = ''
 
   @IsNotEmpty({message: '电影类型不可以为空'})

@@ -8,6 +8,8 @@
     "strictNullChecks": true,
     "removeComments": true,
     "noEmitOnError": true,
+    "esModuleInterop": true,
+
     "lib": ["ESNext"]
   },
   "include": ["./src"]
