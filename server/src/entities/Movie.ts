@@ -1,5 +1,5 @@
-import { ArrayMinSize, IsInt, IsNotEmpty, Min, MinLength } from "class-validator";
-import { Type } from 'class-transformer';
+import { ArrayMinSize, IsInt, IsNotEmpty, Min, MinLength, validate } from "class-validator";
+import { plainToClass, Type } from 'class-transformer';
 export class Movie {
 
   @IsNotEmpty({ message: '电影名称不可以为空' })
@@ -29,5 +29,22 @@ export class Movie {
   public description?: string; // 简介
 
   public poster?: string = ''; // 海报
+
+/**
+ * 验证当前电影对象
+ */
+  public async validateMovie(skipMissing: boolean): Promise<string[]> {
+    const errors = await validate(this, {
+      skipMissingProperties: skipMissing
+    });
+    return errors.map(e => Object.values(e.constraints || [])).flat()
+  }
+
+  public static transform(plainObject: object): Movie {
+    if (plainObject instanceof Movie) {
+      return plainObject;
+    }
+    return plainToClass(Movie. transform)
+  }
 
 }
